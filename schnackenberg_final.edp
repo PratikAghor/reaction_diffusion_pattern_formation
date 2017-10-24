@@ -49,13 +49,13 @@ real A=6;
 real B=4;
 u =1+0.5*cos(kc*sqrt(3)*(y)/2)*cos(kc*(x)/2)+0.75*cos(kc*x);
 uold = u;
-plot(u,value=1,fill=1,grey=1,cmm=”initialize u”,ps=”initial u.jpg”);
+plot(u,value=1,fill=1,grey=1,cmm="initialize u",ps="initial u.jpg");
 v = 1+0.5*sin(kc*(x)/2)*cos(kc*(x)/2);
 vold = v;
-plot(v,value=1,fill=1,grey=1,cmm=”initialize v”,ps=”initial v.jpg”);
+plot(v,value=1,fill=1,grey=1,cmm="initialize v",ps="initial v.jpg");
 //**********************Fractional Step Method********************************//
 //**********************Step 1************************************************//
-for(real t=0;t < =tmax;t=t+dt)
+for(real t=0;t <=tmax;t=t+dt)
 {
 /////////4rth order Ruge-Kutta to solve reaction system:
 //eqn is u’=f(t,u); time is from t1 to t2; time step h=(t2-t1)/N; u(t1)=u0;
@@ -67,10 +67,10 @@ real h= (t2-t1)/N;
 for(real t=t1;t < t2;t=t+h)
 {
 Vh K1,K2,K3,K4;
-K1=h*(-uold+uoldˆ2*vold); //K1=h*f(t,u(t1));
-K2=h*(-(uold+K1/2)+(uold+K1/2)ˆ2*vold);//K2=h*f(t+h/2,u(t1)+K1/2);
-K3=h*(-(uold+K2/2)+(uold+K2/2)ˆ2*vold);//K3=h*f(t+h/2,u(t1)+K2/2);
-K4=h*(-(uold+K3)+(uold+K3)ˆ2*vold);//K4=h*f(t+h,u(t1)+K3);
+K1=h*(-uold+uold^2*vold); //K1=h*f(t,u(t1));
+K2=h*(-(uold+K1/2)+(uold+K1/2)^2*vold);//K2=h*f(t+h/2,u(t1)+K1/2);
+K3=h*(-(uold+K2/2)+(uold+K2/2)^2*vold);//K3=h*f(t+h/2,u(t1)+K2/2);
+K4=h*(-(uold+K3)+(uold+K3)^2*vold);//K4=h*f(t+h,u(t1)+K3);
 uold=uold+(K1+2*K2+2*K3+K4)/6;
 //plot(uold,value=1,fill=0);
 //t=t1+i*h;
@@ -78,10 +78,10 @@ uold=uold+(K1+2*K2+2*K3+K4)/6;
 for(real t=t1;t < 2*t2;t=t+h)
 {
 Vh A1,A2,A3,A4;
-A1=h*(lambda-uoldˆ2*vold);//A1=h*g(t,v(t1));
-A2=h*(lambda-uoldˆ2*(vold+A1/2));//A2=h*g(t+h/2,v(t1)+K1/2);
-A3=h*(lambda-uoldˆ2*(vold+A2/2));//A3=h*g(t+h/2,v(t1)+K2/2);
-A4=h*(lambda-uoldˆ2*(vold+A3));//A4=h*g(t+h,v(t1)+K3);
+A1=h*(lambda-uold^2*vold);//A1=h*g(t,v(t1));
+A2=h*(lambda-uold^2*(vold+A1/2));//A2=h*g(t+h/2,v(t1)+K1/2);
+A3=h*(lambda-uold^2*(vold+A2/2));//A3=h*g(t+h/2,v(t1)+K2/2);
+A4=h*(lambda-uold^2*(vold+A3));//A4=h*g(t+h,v(t1)+K3);
 vold=vold+(A1+2*A2+2*A3+A4)/6;
 //t=t1+j*h;
 //plot(v,value=1,fill=0);
@@ -89,10 +89,10 @@ vold=vold+(A1+2*A2+2*A3+A4)/6;
 for(real t=t1;t < t2;t=t+h)
 {
 Vh K1,K2,K3,K4;
-K1=h*(-uold+uoldˆ2*vold); //K1=h*f(t,u(t1));
-K2=h*(-(uold+K1/2)+(uold+K1/2)ˆ2*vold);//K2=h*f(t+h/2,u(t1)+K1/2);
-K3=h*(-(uold+K2/2)+(uold+K2/2)ˆ2*vold);//K3=h*f(t+h/2,u(t1)+K2/2);
-K4=h*(-(uold+K3)+(uold+K3)ˆ2*vold);//K4=h*f(t+h,u(t1)+K3);
+K1=h*(-uold+uold^2*vold); //K1=h*f(t,u(t1));
+K2=h*(-(uold+K1/2)+(uold+K1/2)^2*vold);//K2=h*f(t+h/2,u(t1)+K1/2);
+K3=h*(-(uold+K2/2)+(uold+K2/2)^2*vold);//K3=h*f(t+h/2,u(t1)+K2/2);
+K4=h*(-(uold+K3)+(uold+K3)^2*vold);//K4=h*f(t+h,u(t1)+K3);
 uold=uold+(K1+2*K2+2*K3+K4)/6;
 //plot(uold,value=1,fill=0);
 //t=t1+i*h;
@@ -110,10 +110,10 @@ uold = u;
 for(real t=t1;t < t2;t=t+h)
 {
 Vh K1,K2,K3,K4;
-K1=h*(-uold+uoldˆ2*vold); //K1=h*f(t,u(t1));
-K2=h*(-(uold+K1/2)+(uold+K1/2)ˆ2*vold);//K2=h*f(t+h/2,u(t1)+K1/2);
-K3=h*(-(uold+K2/2)+(uold+K2/2)ˆ2*vold);//K3=h*f(t+h/2,u(t1)+K2/2);
-K4=h*(-(uold+K3)+(uold+K3)ˆ2*vold);//K4=h*f(t+h,u(t1)+K3);
+K1=h*(-uold+uold^2*vold); //K1=h*f(t,u(t1));
+K2=h*(-(uold+K1/2)+(uold+K1/2)^2*vold);//K2=h*f(t+h/2,u(t1)+K1/2);
+K3=h*(-(uold+K2/2)+(uold+K2/2)^2*vold);//K3=h*f(t+h/2,u(t1)+K2/2);
+K4=h*(-(uold+K3)+(uold+K3)^2*vold);//K4=h*f(t+h,u(t1)+K3);
 uold=uold+(K1+2*K2+2*K3+K4)/6;
 //plot(uold,value=1,fill=0);
 //t=t1+i*h;
@@ -122,10 +122,10 @@ uold=uold+(K1+2*K2+2*K3+K4)/6;
 for(real t=t1;t < 2*t2;t=t+h)
 {
 Vh A1,A2,A3,A4;
-A1=h*(lambda-uoldˆ2*vold);//A1=h*g(t,v(t1));
-A2=h*(lambda-uoldˆ2*(vold+A1/2));//A2=h*g(t+h/2,v(t1)+K1/2);
-A3=h*(lambda-uoldˆ2*(vold+A2/2));//A3=h*g(t+h/2,v(t1)+K2/2);
-A4=h*(lambda-uoldˆ2*(vold+A3));//A4=h*g(t+h,v(t1)+K3);
+A1=h*(lambda-uold^2*vold);//A1=h*g(t,v(t1));
+A2=h*(lambda-uold^2*(vold+A1/2));//A2=h*g(t+h/2,v(t1)+K1/2);
+A3=h*(lambda-uold^2*(vold+A2/2));//A3=h*g(t+h/2,v(t1)+K2/2);
+A4=h*(lambda-uold^2*(vold+A3));//A4=h*g(t+h,v(t1)+K3);
 vold=vold+(A1+2*A2+2*A3+A4)/6;
 //t=t1+j*h;
 //plot(v,value=1,fill=0);
@@ -134,10 +134,10 @@ vold=vold+(A1+2*A2+2*A3+A4)/6;
 for(real t=t1;t < t2;t=t+h)
 {
 Vh K1,K2,K3,K4;
-K1=h*(-uold+uoldˆ2*vold); //K1=h*f(t,u(t1));
-K2=h*(-(uold+K1/2)+(uold+K1/2)ˆ2*vold);//K2=h*f(t+h/2,u(t1)+K1/2);
-K3=h*(-(uold+K2/2)+(uold+K2/2)ˆ2*vold);//K3=h*f(t+h/2,u(t1)+K2/2);
-K4=h*(-(uold+K3)+(uold+K3)ˆ2*vold);//K4=h*f(t+h,u(t1)+K3);
+K1=h*(-uold+uold^2*vold); //K1=h*f(t,u(t1));
+K2=h*(-(uold+K1/2)+(uold+K1/2)^2*vold);//K2=h*f(t+h/2,u(t1)+K1/2);
+K3=h*(-(uold+K2/2)+(uold+K2/2)^2*vold);//K3=h*f(t+h/2,u(t1)+K2/2);
+K4=h*(-(uold+K3)+(uold+K3)^2*vold);//K4=h*f(t+h,u(t1)+K3);
 uold=uold+(K1+2*K2+2*K3+K4)/6;
 //plot(uold,value=1,fill=0);
 //t=t1+i*h;
@@ -145,26 +145,26 @@ uold=uold+(K1+2*K2+2*K3+K4)/6;
 //***********************************end of step 3*********************************//
 //plot(v,fill=1,value=1);
 u=uold;v=vold;
-cout << ”t=” << t << endl;
+cout << "t=" << t << endl;
 }
-plot(u,fill=1,grey=1,value=1,cmm=”u at t=”+t,
-wait=1,ps=”u(t)(”+t+”).jpg”);
-plot(v,fill=1,grey=1,value=1,cmm=”v at t=”+t,
-wait=1,ps=”v(t)(”+t+”).jpg”);
+plot(u,fill=1,grey=1,value=1,cmm="u at t="+t,
+wait=1,ps="u(t)("+t+").jpg");
+plot(v,fill=1,grey=1,value=1,cmm="v at t="+t,
+wait=1,ps="v(t)("+t+").jpg");
 //*********************************end of transient code*************************//
 fespace Ph(Th,[P1,P1]);
 Ph [uh1,vh1],[u1,v1],[du,dv],[up,vp];
-u1,v1]=[uold,vold];
+[u1,v1]=[uold,vold];
 //******************************Weak Form(Steady State)**************************//
 varf F([du,dv],[uh1,vh1])= int2d(Th)
-(gamma*(((a-u1+u1ˆ2*v1)*uh1)
-+((b-u1ˆ2*v1)*vh1))
+(gamma*(((a-u1+u1^2*v1)*uh1)
++((b-u1^2*v1)*vh1))
 -(dx(u1)*dx(uh1)+dy(u1)*dy(uh1))
 -d*(dx(v1)*dx(vh1)+dy(v1)*dy(vh1)));
 //****************Linearization***************************************************//
 varf DF([du,dv],[uh1,vh1])=int2d(Th)(
 gamma*(-uh1*du+2*u1*v1*uh1*du-2*u1*v1*vh1*du
-+u1ˆ2*uh1*dv-u1ˆ2*vh1*dv)-(dx(du)*dx(uh1)+dy(du)*dy(uh1))
++u1^2*uh1*dv-u1^2*vh1*dv)-(dx(du)*dx(uh1)+dy(du)*dy(uh1))
 -d*(dx(dv)*dx(vh1)+dy(dv)*dy(vh1))
 )
 ;
@@ -176,18 +176,18 @@ for (int i=0;i < 400;i++)
 up[]=u1[];
 real[int] B= F(0,Ph);
 //real res= B[]’*B[];
-//cout << i << ” residuˆ2 = ” << res << endl;
+//cout << i << " residu^2 = " << res << endl;
 matrix J;
 J= DF(Ph,Ph,solver=UMFPACK);
-real[int] w=Jˆ-1*B;
+real[int] w=J^-1*B;
 u1[] -= w;
-cout << ” iter = ” << i << ” ” << ” w.linfty= ” << w.linfty << endl;
+cout << " iter = " << i << " " << " w.linfty= " << w.linfty << endl;
 if( w.linfty < 1e-6) break;
-plot (u1,fill=1,value=1,cmm=”solution with Newton Raphson u”
-,ps=”nrSolu(”+i+”).jpg”,grey=1);
-plot (v1,fill=1,value=1,cmm=”solution with Newton Raphson v”
-,ps=”nrSolv(”+i+”).jpg”,grey=1);
-ofstream f(”J.dat”);
+plot (u1,fill=1,value=1,cmm="solution with Newton Raphson u"
+,ps="nrSolu("+i+").jpg",grey=1);
+plot (v1,fill=1,value=1,cmm="solution with Newton Raphson v"
+,ps="nrSolv("+i+").jpg",grey=1);
+ofstream f("J.dat");
 f << J << endl;
 }
 //******************End of Newton-Raphson*******************************************//
